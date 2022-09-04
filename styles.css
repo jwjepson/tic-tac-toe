@@ -32,6 +32,10 @@ body {
     text-align: center;
 }
 
+.square:hover {
+    cursor: pointer;
+}
+
 .square:first-child {
     border-top-left-radius: 1rem;
 }
