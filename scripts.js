@@ -19,12 +19,17 @@ const GameBoard = (() => {
         const squares = document.querySelectorAll(".square");
         squares.forEach((square) => {
             square.addEventListener("click", () => {
-                console.log(square);
-                board[square.dataset.index] = currentPlayer.marker // currentPlayer.marker
-                square.textContent = board[square.dataset.index];
-                switchPlayer();
+                if (isValid(square)) {
+                    console.log(square);
+                    board[square.dataset.index] = currentPlayer.marker // currentPlayer.marker
+                    square.textContent = board[square.dataset.index];
+                    switchPlayer();
+                }
             });
         });
+    }
+    const isValid = (square) => {
+        return square.textContent == "";
     }
     return { addMarker };
 })();
