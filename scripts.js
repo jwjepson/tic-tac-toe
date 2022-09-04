@@ -1,14 +1,3 @@
-const squares = document.querySelectorAll(".square");
-
-squares.forEach((square) => {
-    square.addEventListener("click", addMarker);
-});
-
-function addMarker() {
-    this.textContent = Game.currentPlayer.marker // currentPlayer.marker
-    Game.board[this.dataset.index] = this.textContent;
-}
-
 const Player = (name, marker) => {
     return { name, marker };
 }
@@ -27,5 +16,15 @@ const Game = (() => {
             currentPlayer = player1;
         }
     }
-    return { board, currentPlayer };
+    const addMarker = () => {
+        const squares = document.querySelectorAll(".square");
+        squares.forEach((square) => {
+            square.addEventListener("click", () => {
+                console.log(square);
+                board[square.dataset.index] = currentPlayer.marker // currentPlayer.marker
+                square.textContent = board[square.dataset.index];
+            });
+        });
+    }
+    return { board, currentPlayer, addMarker };
 })();
