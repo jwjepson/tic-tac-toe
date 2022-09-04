@@ -2,12 +2,11 @@ const Player = (name, marker) => {
     return { name, marker };
 }
 
-const player1 = Player("Jake", "X");
-const player2 = Player("Computer", "O");
-
-const Game = (() => {
+const GameBoard = (() => {
+    const player1 = Player("Jake", "X");
+    const player2 = Player("Computer", "O");
     const board = [];
-    const currentPlayer = player1;
+    let currentPlayer = player1;
     const switchPlayer = () => {
         if (currentPlayer == player1) {
             currentPlayer = player2;
@@ -23,8 +22,13 @@ const Game = (() => {
                 console.log(square);
                 board[square.dataset.index] = currentPlayer.marker // currentPlayer.marker
                 square.textContent = board[square.dataset.index];
+                switchPlayer();
             });
         });
     }
-    return { board, currentPlayer, addMarker };
+    return { addMarker };
+})();
+
+const Game = (() => {
+    GameBoard.addMarker();
 })();
