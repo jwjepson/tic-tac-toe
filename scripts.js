@@ -49,7 +49,7 @@ const GameBoard = (() => {
        restart();
     }
 
-    const addMarker = () => {
+    const startGame = () => {
         const squares = document.querySelectorAll(".square");
         squares.forEach((square) => {
             square.addEventListener("click", () => {
@@ -63,7 +63,9 @@ const GameBoard = (() => {
                     else if (counter == 9) {
                         displayDraw();
                     }
-                    switchPlayer();
+                    else {
+                        switchPlayer();
+                    }
                 }
             });
         });
@@ -95,9 +97,9 @@ const GameBoard = (() => {
         return square.textContent == "";
     }
     
-    return { board, addMarker };
+    return { startGame };
 })();
 
 const Game = (() => {
-    GameBoard.addMarker();
+    GameBoard.startGame();
 })();
