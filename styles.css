@@ -58,12 +58,13 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.7);
     z-index: 2;
     display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 20px;
 }
 
 .displayWinner {
@@ -76,4 +77,18 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 40px;
+}
+
+.restart {
+    font-size: 25px;
+    padding: 10px;
+    border-radius: 1rem;
+    border: 2px solid black;
+    background-color: #ADD8e6;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.restart:hover {
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    cursor: pointer;
 }
