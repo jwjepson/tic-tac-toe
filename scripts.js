@@ -3,8 +3,8 @@ const Player = (name, marker) => {
 }
 
 const GameBoard = (() => {
-    const player1 = Player("Jake", "X");
-    const player2 = Player("Computer", "O");
+    const player1 = Player("Player 1", "X");
+    const player2 = Player("Player 2", "O");
 
     const winningCombinations = [
         [0,3,6],
@@ -22,6 +22,9 @@ const GameBoard = (() => {
     let currentPlayer = player1;
 
     let counter = 0;
+
+    currentTurn = document.querySelector(".currentTurn");
+    currentTurn.textContent = `${currentPlayer.name}'s turn`
 
     const switchPlayer = () => {
         if (currentPlayer == player1) {
@@ -65,6 +68,7 @@ const GameBoard = (() => {
                     }
                     else {
                         switchPlayer();
+                        currentTurn.textContent = `${currentPlayer.name}'s turn`
                     }
                 }
             });
@@ -77,6 +81,8 @@ const GameBoard = (() => {
         restartButton.addEventListener("click", () => {
             board.splice(0, board.length);
             counter = 0;
+            currentTurn.textContent = `${player1.name}'s turn`
+            currentPlayer = player1;
             const squares = document.querySelectorAll(".square");
             squares.forEach((square) => {
                 square.textContent = "";
