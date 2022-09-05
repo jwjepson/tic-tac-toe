@@ -41,12 +41,19 @@ const GameBoard = (() => {
                     board[square.dataset.index] = currentPlayer.marker // currentPlayer.marker
                     square.textContent = board[square.dataset.index];
                     if (checkForWinner()) {
-                        alert(`${currentPlayer.name} is the winner!`);
+                        endGame();
                     }
                     switchPlayer();
                 }
             });
         });
+    }
+
+    const endGame = () => {
+       const overlay = document.querySelector(".overlay");
+       const displayWinner = document.querySelector(".displayWinner");
+       overlay.style.display = "flex";
+       displayWinner.textContent = `${currentPlayer.name} won the game!`;
     }
     const isValid = (square) => {
         return square.textContent == "";
