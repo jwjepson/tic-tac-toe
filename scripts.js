@@ -5,6 +5,7 @@ const Player = (name, marker) => {
 const GameBoard = (() => {
     const player1 = Player("Jake", "X");
     const player2 = Player("Computer", "O");
+
     const winningCombinations = [
         [0,3,6],
         [0,4,8],
@@ -15,8 +16,13 @@ const GameBoard = (() => {
         [1,4,7],
         [6,7,8],
     ]
-    const board = [];
+
+    let board = [];
+
     let currentPlayer = player1;
+
+    let counter = 0;
+
     const switchPlayer = () => {
         if (currentPlayer == player1) {
             currentPlayer = player2;
@@ -25,6 +31,7 @@ const GameBoard = (() => {
             currentPlayer = player1;
         }
     }
+
     const checkForWinner = () => {
         for (let i = 0; i < winningCombinations.length; i++) {
             if (currentPlayer.marker == board[winningCombinations[i][0]] && currentPlayer.marker == board[winningCombinations[i][1]] && currentPlayer.marker == board[winningCombinations[i][2]]) {
@@ -33,6 +40,15 @@ const GameBoard = (() => {
         }
         return false;
     }
+
+    const displayDraw = () => {
+        const overlay = document.querySelector(".overlay");
+       const displayWinner = document.querySelector(".displayWinner");
+       overlay.style.display = "flex";
+       displayWinner.textContent = `Game ended in a draw!`;
+       restart();
+    }
+
     const addMarker = () => {
         const squares = document.querySelectorAll(".square");
         squares.forEach((square) => {
@@ -40,8 +56,12 @@ const GameBoard = (() => {
                 if (isValid(square)) {
                     board[square.dataset.index] = currentPlayer.marker // currentPlayer.marker
                     square.textContent = board[square.dataset.index];
+                    counter++;
                     if (checkForWinner()) {
-                        endGame();
+                        displayWinner();
+                    }
+                    else if (counter == 9) {
+                        displayDraw();
                     }
                     switchPlayer();
                 }
@@ -49,16 +69,33 @@ const GameBoard = (() => {
         });
     }
 
-    const endGame = () => {
+    const restart = () => {
+        const restartButton = document.querySelector(".restart");
+        const overlay = document.querySelector(".overlay");
+        restartButton.addEventListener("click", () => {
+            board.splice(0, board.length);
+            counter = 0;
+            const squares = document.querySelectorAll(".square");
+            squares.forEach((square) => {
+                square.textContent = "";
+            })
+            overlay.style.display = "none";
+        })
+    }
+
+    const displayWinner = () => {
        const overlay = document.querySelector(".overlay");
        const displayWinner = document.querySelector(".displayWinner");
        overlay.style.display = "flex";
        displayWinner.textContent = `${currentPlayer.name} won the game!`;
+       restart();
     }
+
     const isValid = (square) => {
         return square.textContent == "";
     }
-    return { addMarker };
+    
+    return { board, addMarker };
 })();
 
 const Game = (() => {
